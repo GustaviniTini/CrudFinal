@@ -4,6 +4,10 @@ import Spinner from '../components/Spinner';
 import axios from 'axios';
 import { useNavigate, useParams } from 'react-router-dom';
 
+const apiClient = axios.create({
+  withCredentials: true,
+});
+
 const DeletePlayer = () => {
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
@@ -11,8 +15,8 @@ const DeletePlayer = () => {
 
   const handleDeletePlayer = () => {
     setLoading(true);
-    axios
-      .delete(`http://localhost:5555/players/${id}`)
+    apiClient
+      .delete(`http://localhost:5555/api/players/${id}`)
       .then(() => {
         setLoading(false);
         navigate('/');

@@ -6,13 +6,17 @@ import { AiOutlineEdit, AiOutlineGroup } from 'react-icons/ai';
 import { BsInfoCircle } from 'react-icons/bs';
 import { MdOutlineAddBox, MdOutlineDelete } from 'react-icons/md';
 
+const apiClient = axios.create({
+    withCredentials: true,
+  });
+
 const Home = () => {
     const [players, setPlayers] = useState([]);
     const [loading, setLoading] = useState(false);
     useEffect(() => {
         setLoading(true);
-        axios
-            .get('http://localhost:5555/players')
+        apiClient
+            .get('http://localhost:5555/api/players')
             .then((response) => {
                 setPlayers(response.data.data);
                 setLoading(false);

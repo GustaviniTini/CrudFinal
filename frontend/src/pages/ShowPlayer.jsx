@@ -4,6 +4,10 @@ import { useParams } from 'react-router-dom';
 import BackButton from '../components/BackButton';
 import Spinner from '../components/Spinner';
 
+const apiClient = axios.create({
+  withCredentials: true,
+});
+
 const ShowPlayer = () => {
   const [player, setPlayer] = useState({});
   const [loading, setLoading] = useState(false);
@@ -11,8 +15,8 @@ const ShowPlayer = () => {
 
   useEffect(() => {
     setLoading(true);
-    axios
-      .get(`http://localhost:5555/players/${id}`)
+    apiClient
+      .get(`http://localhost:5555/api/players/${id}`)
       .then((response) => {
         setPlayer(response.data);
         setLoading(false);

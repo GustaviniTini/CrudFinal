@@ -4,6 +4,10 @@ import Spinner from '../components/Spinner';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 
+const apiClient = axios.create({
+  withCredentials: true,
+});
+
 const NewPlayer = () => {
   const [nombre, setNombre] = useState('');
   const [posicion, setPosicion] = useState('');
@@ -18,8 +22,8 @@ const NewPlayer = () => {
       edad,
     };
     setLoading(true);
-    axios
-      .post('http://localhost:5555/players', data)
+    apiClient
+      .post('http://localhost:5555/api/players', data)
       .then(() => {
         setLoading(false);
         navigate('/');

@@ -4,6 +4,10 @@ import Spinner from '../components/Spinner';
 import axios from 'axios';
 import { useNavigate, useParams } from 'react-router-dom';
 
+const apiClient = axios.create({
+  withCredentials: true,
+});
+
 const EditPlayer = () => {
   const [nombre, setNombre] = useState('');
   const [posicion, setPosicion] = useState('');
@@ -14,7 +18,7 @@ const EditPlayer = () => {
 
   useEffect(() => {
     setLoading(true);
-    axios.get(`http://localhost:5555/players/${id}`)
+    apiClient.get(`http://localhost:5555/api/players/${id}`)
     .then((response) => {
         setPosicion(response.data.posicion);
         setEdad(response.data.edad)
@@ -34,8 +38,8 @@ const EditPlayer = () => {
       edad,
     };
     setLoading(true);
-    axios
-      .put(`http://localhost:5555/players/${id}`, data)
+    apiClient
+      .put(`http://localhost:5555/api/players/${id}`, data)
       .then(() => {
         setLoading(false);
         navigate('/');
